@@ -51,11 +51,20 @@ var parsersCmd = &cobra.Command{
 	},
 }
 
+var listParsersCmd = newListCmd(
+	"List parsers",
+	"",
+)
+
 func init() {
 	logtypesCmd.AddCommand(parsersCmd)
 
 	parsersCmd.PersistentFlags().StringP("parser", "p", "", "Parser ID")
 	parsersCmd.MarkPersistentFlagRequired("parser")
+
+	// list parsers
+	parsersCmd.AddCommand(listParsersCmd)
+	listParsersCmd.Flags().StringP("logtype", "l", "-", "Parser log type label")
 
 	// listParsersCmd.Flags().StringP("logtype", "l", "-", "SecOps log type label") // override the logtype flag so it can have a "-" default value
 	// listParsersCmd.Flags().StringP("filter", "f", "", "A filter which should follow the guidelines of AIP-160 (https://google.aip.dev/160)")

@@ -59,7 +59,15 @@ var logtypesCmd = &cobra.Command{
 	},
 }
 
+var listLogTypesCmd = newListCmd(
+	"List log types",
+	"",
+)
+
 func init() {
 	logtypesCmd.PersistentFlags().StringP("logtype", "l", "", "SecOps log type label")
 	logtypesCmd.MarkPersistentFlagRequired("logtype")
+
+	// method commands
+	logtypesCmd.AddCommand(listLogTypesCmd)
 }

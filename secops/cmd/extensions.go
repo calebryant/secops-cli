@@ -58,9 +58,17 @@ var extensionsCmd = &cobra.Command{
 	},
 }
 
+var listExtensionsCmd = newListCmd(
+	"List parser extensions",
+	"",
+)
+
 func init() {
 	logtypesCmd.AddCommand(extensionsCmd)
-
 	extensionsCmd.PersistentFlags().StringVarP(&extensionId, "extension", "x", "", "Parser extension ID")
 	extensionsCmd.MarkPersistentFlagRequired("extension")
+
+	// list
+	extensionsCmd.AddCommand(listExtensionsCmd)
+	listExtensionsCmd.Flags().StringP("logtype", "l", "-", "Parser log type label")
 }

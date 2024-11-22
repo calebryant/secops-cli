@@ -21,13 +21,6 @@ THE SOFTWARE.
 */
 package cmd
 
-var listParsersCmd = newListCmd(
-	"List parsers",
-	"",
-)
-
 func init() {
-	parsersCmd.AddCommand(listParsersCmd)
 
-	listParsersCmd.Flags().StringP("logtype", "l", "-", "Parser log type label")
 }
