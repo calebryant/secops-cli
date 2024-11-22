@@ -127,13 +127,10 @@ func Execute() {
 
 func init() {
 	rootCmd.PersistentFlags().StringP("version", "v", "v1alpha", "Chronicle API version (v1, v1alpha, v1beta)")
-
 	rootCmd.PersistentFlags().StringP("location", "R", "us", "SecOps availability region")
-
 	rootCmd.PersistentFlags().StringP("project", "P", "", "GCP project ID linked to the SecOps tenant")
-	rootCmd.MarkPersistentFlagRequired("project")
-
 	rootCmd.PersistentFlags().StringP("instance", "I", "", "SecOps customer ID")
+	rootCmd.MarkPersistentFlagRequired("project")
 	rootCmd.MarkPersistentFlagRequired("instance")
 
 	// child commands
