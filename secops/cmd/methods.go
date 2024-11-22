@@ -33,7 +33,7 @@ func newActivateCmd(short, long string) *cobra.Command {
 		Use:   "activate",
 		Short: short,
 		Long:  long,
-		PreRunE: func(cmd *cobra.Command, args []string) error {
+		PersistentPreRunE: func(cmd *cobra.Command, args []string) error {
 			// initialize the request object
 			request.Method = http.MethodPost
 			request.Body = nil
@@ -55,7 +55,7 @@ func newDeactivateCmd(short, long string) *cobra.Command {
 		Use:   "deactivate",
 		Short: short,
 		Long:  long,
-		PreRunE: func(cmd *cobra.Command, args []string) error {
+		PersistentPreRunE: func(cmd *cobra.Command, args []string) error {
 			// initialize the request object
 			request.Method = http.MethodPost
 			request.Body = nil
@@ -77,7 +77,7 @@ func newGetCmd(short, long string) *cobra.Command {
 		Use:   "get",
 		Short: short,
 		Long:  long,
-		PreRunE: func(cmd *cobra.Command, args []string) error {
+		PersistentPreRunE: func(cmd *cobra.Command, args []string) error {
 			// initialize the request object
 			request.Method = http.MethodGet
 			request.Body = nil
@@ -99,7 +99,7 @@ func newCreateCmd(short, long string) *cobra.Command {
 		},
 		Short: short,
 		Long:  long,
-		PreRunE: func(cmd *cobra.Command, args []string) error {
+		PersistentPreRunE: func(cmd *cobra.Command, args []string) error {
 			// initialize the request object
 			request.Method = http.MethodPost
 			request.Body = nil
@@ -120,7 +120,7 @@ func newDeleteCmd(short, long string) *cobra.Command {
 		},
 		Short: short,
 		Long:  long,
-		PreRunE: func(cmd *cobra.Command, args []string) error {
+		PersistentPreRunE: func(cmd *cobra.Command, args []string) error {
 			// initialize the request object
 			request.Method = http.MethodDelete
 			request.Body = nil
@@ -141,7 +141,7 @@ func newListCmd(short, long string) *cobra.Command {
 		Aliases: []string{
 			"ls",
 		},
-		PreRunE: func(cmd *cobra.Command, args []string) error {
+		PersistentPreRunE: func(cmd *cobra.Command, args []string) error {
 			var err error
 			var pageSize int
 			var pageToken string

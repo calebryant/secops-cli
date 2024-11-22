@@ -41,14 +41,6 @@ var logtypesCmd = &cobra.Command{
 		if err != nil {
 			return err
 		}
-		// logtypes is not required for certain logtypes commands
-		// so we can remove the requirement for the flag
-		switch cmd.CommandPath() {
-		case "secops logtypes list":
-			if err := cmd.Flags().SetAnnotation("logtype", cobra.BashCompOneRequiredFlag, []string{"false"}); err != nil {
-				return err
-			}
-		}
 		request.URL = request.URL.JoinPath("logTypes", logtype)
 		return nil
 	},
@@ -70,4 +62,11 @@ func init() {
 
 	// method commands
 	logtypesCmd.AddCommand(listLogTypesCmd)
+	listLogTypesCmd.PreRun = func(cmd *cobra.Command, _ []string) {
+		flagMarkUnrequired(cmd, "logtype")
+	}
+}
+
+func flagMarkUnrequired(cmd *cobra.Command, name string) {
+	cmd.Flags().SetAnnotation(name, cobra.BashCompOneRequiredFlag, []string{"false"})
 }

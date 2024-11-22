@@ -34,7 +34,7 @@ var extensionsCmd = &cobra.Command{
 	Use: "extensions",
 	Aliases: []string{
 		"extension",
-		"parserExtension",
+		"ext",
 	},
 	Short: "A brief description of your command",
 	Long:  ``,
@@ -63,10 +63,18 @@ var listExtensionsCmd = newListCmd(
 	"",
 )
 
+var getExtensionCmd = newGetCmd(
+	"Get a parser extension",
+	"",
+)
+
 func init() {
 	logtypesCmd.AddCommand(extensionsCmd)
 	extensionsCmd.PersistentFlags().StringVarP(&extensionId, "extension", "x", "", "Parser extension ID")
 	extensionsCmd.MarkPersistentFlagRequired("extension")
+
+	// get
+	extensionsCmd.AddCommand(getExtensionCmd)
 
 	// list
 	extensionsCmd.AddCommand(listExtensionsCmd)
