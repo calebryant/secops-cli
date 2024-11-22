@@ -66,7 +66,3 @@ func init() {
 		flagMarkUnrequired(cmd, "logtype")
 	}
 }
-
-func flagMarkUnrequired(cmd *cobra.Command, name string) {
-	cmd.Flags().SetAnnotation(name, cobra.BashCompOneRequiredFlag, []string{"false"})
-}

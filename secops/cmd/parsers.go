@@ -39,13 +39,6 @@ var parsersCmd = &cobra.Command{
 		if err != nil {
 			return err
 		}
-		// mark the 'parser' flag as optional for list and create commands
-		switch cmd.CommandPath() {
-		case "secops logtypes parsers list", "secops logtypes parsers create":
-			if err := cmd.Flags().SetAnnotation("parser", cobra.BashCompOneRequiredFlag, []string{"false"}); err != nil {
-				return err
-			}
-		}
 		request.URL = request.URL.JoinPath("parsers", parser)
 		return nil
 	},
@@ -65,24 +58,8 @@ func init() {
 	// list parsers
 	parsersCmd.AddCommand(listParsersCmd)
 	listParsersCmd.Flags().StringP("logtype", "l", "-", "Parser log type label")
-
-	// listParsersCmd.Flags().StringP("logtype", "l", "-", "SecOps log type label") // override the logtype flag so it can have a "-" default value
-	// listParsersCmd.Flags().StringP("filter", "f", "", "A filter which should follow the guidelines of AIP-160 (https://google.aip.dev/160)")
-	// parsersCmd.AddCommand(&listParsersCmd)
-
-	// var createParserCmd = *postCmd
-	// parsersCmd.AddCommand(&createParserCmd)
-
-	// var getParsersCmd = *getCmd
-	// parsersCmd.AddCommand(&getParsersCmd)
-
-	// var activateParserCmd = activateCmd
-	// parsersCmd.AddCommand(&activateParserCmd)
-
-	// var deactivateParserCmd = deactivateCmd
-	// parsersCmd.AddCommand(&deactivateParserCmd)
-
-	// var deleteParserCmd = *deleteCmd
-	// deleteParserCmd.Flags().BoolP("force", "f", false, "Force delete an active parser")
-	// parsersCmd.AddCommand(&deleteParserCmd)
+	listParsersCmd.Flags().StringP("filter", "f", "", "A filter which should follow the guidelines of AIP-160 (https://google.aip.dev/160)")
+	listParsersCmd.PreRun = func(cmd *cobra.Command, _ []string) {
+		flagMarkUnrequired(cmd, "parser")
+	}
 }

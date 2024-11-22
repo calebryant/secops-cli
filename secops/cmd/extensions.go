@@ -43,13 +43,6 @@ var extensionsCmd = &cobra.Command{
 		if err != nil {
 			return err
 		}
-		// mark the 'parser' flag as optional for list and create commands
-		switch cmd.CommandPath() {
-		case "secops logtypes extensions list", "secops logtypes extensions create":
-			if err := cmd.Flags().SetAnnotation("extension", cobra.BashCompOneRequiredFlag, []string{"false"}); err != nil {
-				return err
-			}
-		}
 		request.URL = request.URL.JoinPath("parserExtensions", extension)
 		return nil
 	},
@@ -79,4 +72,7 @@ func init() {
 	// list
 	extensionsCmd.AddCommand(listExtensionsCmd)
 	listExtensionsCmd.Flags().StringP("logtype", "l", "-", "Parser log type label")
+	listExtensionsCmd.PreRun = func(cmd *cobra.Command, _ []string) {
+		flagMarkUnrequired(cmd, "extension")
+	}
 }
